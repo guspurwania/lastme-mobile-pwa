@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+</head>
+<body style="background-color: white">
+  <script>
+    $(function(){
+      // Initialization code
+      $('ons-button').on('click', function(e) {
+        $.post("http://localhost/lastme/api/v1/auth/register",
+        {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            phone: $('#phone').val()
+        },
+        function(data, status){
+            ons.notification.alert(data.message);
+        });
+      })
+    });
+  </script>
+    <ons-page>
+	  <div style="text-align: center; margin-top: 30px;">
+	  	<img src="img/logo.png" style="width: 30%"> <br /><br />
+	    <p>
+        <ons-input id="name" modifier="underbar" placeholder="Name" float></ons-input>
+      </p>
+      <p>
+        <ons-input id="email" modifier="underbar" placeholder="Email" float></ons-input>
+      </p>
+      <p>
+	      <ons-input id="phone" modifier="underbar" placeholder="Phone Number" float></ons-input>
+	    </p>
+	    <p style="margin-top: 30px;">
+	      <ons-button>Register</ons-button> <br /><br />
+	      Do you have account? <a href="index.html">Login here</a>
+	    </p>
+	  </div>
+    </ons-page>
+</body>
+</html>

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgAQOKoaiYIXHi0UxM76u3B50dVJLBZKk&libraries=places" async defer></script>
+</head>
+<body style="background-color: white">
+    <ons-splitter>
+      <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+        <ons-page>
+          <ons-list>
+            <ons-list-item id="profile">
+
+            </ons-list-item>
+            <ons-list-item onclick="fn.load('home.html')" tappable>
+              Home
+            </ons-list-item>
+            <ons-list-item onclick="fn.load('settings.html')" tappable>
+              Set Friends
+            </ons-list-item>
+            <ons-list-item onclick="fn.load('about.html')" tappable>
+              Maps
+            </ons-list-item>
+            <ons-list-item onclick="document.location='help.html'" tappable>
+              Bantuan
+            </ons-list-item>
+            <ons-list-item onclick="document.location='index.html'" tappable>
+              Logout
+            </ons-list-item>
+          </ons-list>
+        </ons-page>
+      </ons-splitter-side>
+      <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+    </ons-splitter>
+
+    <template id="home.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            #LastMe
+          </div>
+        </ons-toolbar>
+
+        <ons-speed-dial position="bottom right" direction="up">
+          <ons-fab style="background-color: red; color: white">
+            <ons-icon icon="md-alert-circle-o" onclick="ons.notification.alert('Saya dalam Keadaan Darurat!');"></ons-icon>
+          </ons-fab>
+        </ons-speed-dial>
+
+        <ons-speed-dial position="bottom right" direction="up" style="margin-right:70px;">
+          <ons-fab style="background-color: green; color: white">
+            <ons-icon icon="md-info" onclick="ons.notification.alert('Saya Aman');"></ons-icon>
+          </ons-fab>
+        </ons-speed-dial>
+
+        <ons-tabbar swipeable position="auto">
+          <ons-tab page="tab1.html" label="Home" icon="ion-home, material:md-home" active>
+          </ons-tab>
+          <ons-tab page="tab2.html" label="Friend Notification" icon="md-notifications">
+          </ons-tab>
+        </ons-tabbar>
+        
+        <div id="map" style="display: none" />
+      </ons-page>
+    </template>
+
+    <template id="tab1.html">
+      <ons-page id="Tab1">
+        <ons-list>
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Lombok</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 8 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Palu</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 7 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Sumbawa</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 6 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Lombok</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 8 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Palu</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 7 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Sumbawa</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 6 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Lombok</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 8 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Palu</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 7 SR</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title">Gempa Bumi di Sumbawa</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 6 SR</span>
+            </div>
+          </ons-list-item>
+
+        </ons-list> 
+      </ons-page>
+    </template>
+
+    <template id="tab2.html">
+      <ons-page id="Tab2">
+        <ons-list>
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification">Andi</span><span class="list-item__subtitle">Gempa terjadi di manado dengan Magnitudo 8 SR [DARURAT]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification" style="background-color: green">Bagas</span><span class="list-item__subtitle">Gempa terjadi di jawa timur dengan Magnitudo 6 SR [AMAN]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification" style="background-color: orange">Udin</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 8 SR [WARNING]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification">Andi</span><span class="list-item__subtitle">Gempa terjadi di manado dengan Magnitudo 8 SR [DARURAT]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification" style="background-color: green">Bagas</span><span class="list-item__subtitle">Gempa terjadi di jawa timur dengan Magnitudo 6 SR [AMAN]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification" style="background-color: orange">Udin</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 8 SR [WARNING]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification">Andi</span><span class="list-item__subtitle">Gempa terjadi di manado dengan Magnitudo 8 SR [DARURAT]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification" style="background-color: green">Bagas</span><span class="list-item__subtitle">Gempa terjadi di jawa timur dengan Magnitudo 6 SR [AMAN]</span>
+            </div>
+          </ons-list-item>
+
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="https://ichef.bbci.co.uk/images/ic/720x405/p06h1pg8.jpg">
+            </div>
+            <div class="center">
+              <span class="list-item__title notification" style="background-color: orange">Udin</span><span class="list-item__subtitle">Gempa terjadi di lombok dengan Magnitudo 8 SR [WARNING]</span>
+            </div>
+          </ons-list-item>
+
+        </ons-list> 
+      </ons-page>
+    </template>
+
+    <template id="settings.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Set Friends
+          </div>
+        </ons-toolbar>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <p>
+            <ons-input id="name" modifier="underbar" placeholder="Name" float></ons-input>
+          </p>
+          <p>
+            <ons-input id="phone_number" modifier="underbar" placeholder="Phone Number" float></ons-input>
+          </p>
+          <p style="margin-top: 30px;">
+            <ons-button>Add Friend</ons-button>
+          </p>
+        </div>
+
+        <br /><br />
+        <ons-list>
+          <ons-list-header>Your Friend</ons-list-header>
+          <ons-list-item>Andi - 085738009350</ons-list-item>
+          <ons-list-item>Udin - 085738009350</ons-list-item>
+          <ons-list-item>Bagas - 085738009350</ons-list-item>
+          <ons-list-item>Aldo - 085738009350</ons-list-item>
+          <ons-list-item>Muhammad - 085738009350</ons-list-item>
+        </ons-list> 
+
+        <p style="margin-top: 30px;" align="center">
+          <ons-button style="background-color: green"><i class="fa fa-sync"></i> Sync with Contact</ons-button>
+        </p>
+
+        <div id="map" style="display: none" />
+      </ons-page>
+    </template>
+
+    <template id="about.html">
+      <ons-page>
+        <ons-toolbar>
+          <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+          <div class="center">
+            Maps
+          </div>
+        </ons-toolbar>
+
+        <ons-speed-dial position="bottom left" direction="up">
+          <ons-fab>
+            <ons-icon icon="md-pin"></ons-icon>
+          </ons-fab>
+          <ons-speed-dial-item>
+            <ons-icon icon="md-face" onclick="show_friend()"></ons-icon>
+          </ons-speed-dial-item>
+          <ons-speed-dial-item>
+            <ons-icon icon="md-info" onclick="show_disaster()"></ons-icon>
+          </ons-speed-dial-item>
+          <!-- <ons-speed-dial-item>
+            <ons-icon icon="md-notifications"></ons-icon>
+          </ons-speed-dial-item> -->
+        </ons-speed-dial>
+
+        <div id="map" style="width:100%;height:100%; position:absolute;"></div> 
+
+        <p style="text-align: center; margin-top: 70px;">
+          <ons-search-input
+            placeholder="Search"
+            onchange="ons.notification.alert('Searched for: ' + this.value)"
+          ></ons-search-input>
+        </p>
+      </ons-page>
+    </template>
+</body>
+</html>
+
+<script type="text/javascript">
+  window.fn = {};
+
+  window.fn.open = function() {
+    var menu = document.getElementById('menu');
+    menu.open();
+  };
+
+  window.fn.load = function(page) {
+    var content = document.getElementById('content');
+    var menu = document.getElementById('menu');
+    content.load(page)
+      .then(function(){
+        menu.close();
+        initMap();
+      });
+
+  };
+
+  document.getElementById("profile").innerHTML = '<center><br /><img src="img/logo.png" width="50px" height="70px" /><br /><br /><strong>' + localStorage.getItem("name") + '</strong><br />' + localStorage.getItem("email")+ '<br /><br /><hr /></center>';
+
+  document.addEventListener('prechange', function(event) {
+    document.querySelector('ons-toolbar .center')
+      .innerHTML = event.tabItem.getAttribute('label');
+  });
+</script>
+
+<script>
+  var map;
+
+  var citymap = {
+      a: {
+        center: {lat: -8.4429077, lng: 115.3111433},
+        population: 2714856
+      },
+      b: {
+        center: {lat: -8.5704717, lng: 115.1874343},
+        population: 8405837
+      },
+      c: {
+        center: {lat: -8.6978357, lng: 115.1869553},
+        population: 3857799
+      }
+    };
+
+  var markers = {
+    a: {
+      position: {lat: -8.4429077, lng: 115.3111433 }
+    },
+    b: {
+      position: {lat: -8.5704717, lng: 115.1874343 }
+    },
+    c: {
+      position: {lat: -8.6978357, lng: 115.1869553 }
+    }
+  };
+
+  function initMap() {
+    var latlng = new google.maps.LatLng(-8.614762, 115.193850);
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: latlng,
+      zoom: 10
+    });
+  }
+
+  function show_disaster()
+  {
+    for (var city in citymap) {
+      // Add the circle for this city to the map.
+      var cityCircle = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: map,
+        center: citymap[city].center,
+        radius: 8000
+      });
+    }
+  }
+
+  function show_friend()
+  {
+    var infowindow;
+    var marker;
+    for (var maker in markers) {
+      marker = new google.maps.Marker({
+        map: map,
+        draggable: false,
+        animation: google.maps.Animation.DROP,
+        position: markers[maker].position
+      });
+
+      infowindow = new google.maps.InfoWindow({
+        content: '<h3><i class="fa fa-user"></i> Ibu Siti</h3><p>Terjadi Gempa Lombok dengan magnitudo 7 SR [Danger Zone]</p>'
+      });
+
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    }
+  }
+
+  // ons.ready(function(){
+  //   initMap();
+  // })
+</script>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+  <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+</head>
+<body style="background-color: white">
+    <ons-page>
+	  <div style="text-align: center; margin-top: 30px;">
+	  	<img src="img/logo.png" style="width: 30%"> <br /><br />
+	  	<p>
+	  		<ons-input value="+62" id="country_code" modifier="underbar" float></ons-input>
+	  	</p>
+	    <p>
+	      <ons-input id="phone_number" modifier="underbar" placeholder="Phone Number" float></ons-input>
+	    </p>
+	    <p style="margin-top: 30px;">
+	      <ons-button onclick="smsLogin();">Sign in</ons-button> <br /><br />
+	      Don't have an account? <a href="register.html">Register here</a>
+	    </p>
+	  </div>
+    </ons-page>
+</body>
+</html>
+
+<script>
+  // initialize Account Kit with CSRF protection
+  AccountKit_OnInteractive = function(){
+    AccountKit.init(
+      {
+        appId:"1738419386420174", 
+        state:"12345", 
+        version:"v1.1",
+        fbAppEventsEnabled:true,
+        redirect:"dashboard.html"
+      }
+    );
+  };
+
+  // login callback
+  function loginCallback(response) {
+    if (response.status === "PARTIALLY_AUTHENTICATED") {
+      var code = response.code;
+      var csrf = response.state;
+
+      $.get("http://localhost/lastme/api/v1/user-by-phone?phone=" + $('#phone_number').val(), function(data, status){
+	        localStorage.setItem("id", data.data.id);
+	        localStorage.setItem("name", data.data.name);
+	        localStorage.setItem("email", data.data.email);
+	        localStorage.setItem("phone", data.data.phone);
+	        ons.notification.alert("Logged In").then(function(){
+	        	document.location = "dashboard.html";
+	        })
+	  });
+      // Send code to server to exchange for access token
+    }
+    else if (response.status === "NOT_AUTHENTICATED") {
+    	ons.notification.alert("Not authenticated");
+      // handle authentication failure
+    }
+    else if (response.status === "BAD_PARAMS") {
+    	ons.notification.alert("Not authenticated");
+      // handle bad parameters
+    }
+  }
+
+  // phone form submission handler
+  function smsLogin() {
+    var countryCode = document.getElementById("country_code").value;
+    var phoneNumber = document.getElementById("phone_number").value;
+    AccountKit.login(
+      'PHONE', 
+      {countryCode: countryCode, phoneNumber: phoneNumber}, // will use default values if not specified
+      loginCallback
+    );
+  }
+
+
+</script>
